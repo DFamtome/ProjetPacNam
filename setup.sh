@@ -1,11 +1,4 @@
-echo Installation de vscode et des extentions
-
-nix-shell -p "vscode"
-nix profile install nixpkgs#vscode-extensions.ms-python.python
-
-echo Installation de pygame
-nix profile install nixpkgs#python311Packages.pygame
-
-nix-shell -p "python3.withPackages (ps: [ ps.pygame ])"
+echo Installation de pygame et de vscode
+nix-shell -p python311Packages.pygame vscode vscode-extensions.ms-python.python
 
 rm ~/.cache/dmenu_run
