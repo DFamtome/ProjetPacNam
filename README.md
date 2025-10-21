@@ -56,11 +56,94 @@ Il nous reste donc :
 
 - `self.real_pos`     (Tuple de valeurs `(x, y)` qui correspond aux coordonées sur la grille du `self.maze.maze`)
 
-- 
+- `self.path`         (Liste de tuples représentant des coordonnées sur la grille que le fantôme doit suivre pour atteindre sa cible. Cette liste pourra être générée par un algorithme que l'on expliquera plus bas)
+
+*La méthode `move_*()` étant la même que pour PacNam, voici les autres méthodes :*
+
+- `kill`              (Le Fantôme a été touché, quand PacNam avais sont power_up. Il doit retourné a sont point de départ et son chemin a été réinitialisé)
+
+- `action()`          (Soit vous faite déplacé le fantôme au hazard sur la grille, soit vous lui fait suivre l'algorithme A*)
 
 
+### Algorithme A*
+
+A* est un algorithme qui est souvent utilisé dans les systèmes d'IA. C'est un algorithme de recherche qui permet de planifier la trajectoire optimale vers une cible dans un espace défini.
+Ce n'est donc pas une IA en tant que telle, une IA inclut des capacités d'apprentissage et d'adaptation en temps réel, comme c'est le cas avec les réseaux de neurones ou les systèmes d'apprentissage.
+A* est un algorithme qui utilise des règles définies à l'avance et ne modifie pas son comportement en fonction de l'expérience ou de nouvelles informations.
+
+ #### Fonctionnement général
+
+A* calcule deux choses pour chaque position :
+
+   - **Le coût pour y arriver depuis la position de départ** `g`.
+   - **Une estimation de la distance restante jusqu’a la position cible** `h`.
+
+On additionne ces deux valeurs et on obtient `f = g + h`. À chaque étape, l'algorithme sélectionne la case avec la plus petite valeur `f` pour continuer son chemin.
+Il cherche le chemin pour se rapprocher de la cible, mais aussi le chemin le plus efficace.
 
 
+#### Implémentation de l'algorithme A*
+
+On va coder la méthode `Ghost.astar(maze, start, end)` pour générer le plus court chemin d'un point de départ `start` vers une cible `end`, Cela pourrait être directement Pac-Man, mais cela rendrait le jeu trop difficile.
+La methode qui vous est fournie `Ghost.find_pos()`, vous renvoie une position valide aléatoire dans la grille.
+
+##### Étape 1 : Initialisation des Variables
+
+- Un **tas** pour stocker les positions à explorer. Pour faire simple, un tas est une structure de données qui maintient les éléments triés.
+   On utilise une bibliothèque pour gérer ce tas plus facilement.
+  ```python
+  heap = []
+
+  #Utilisation
+  heapq.heappush(heap,(f,node)) # Ajoute le tuple (f,node) dans heap
+  f, node = heapq.heappop(heap) # On affecte à f le coût le plus faible dans le tas et à node le nœud qui lui est associé.
+  ```
+  
+- Un **ensemble** pour stocker les cases visitées, cela permet de stocker des éléments sans doublons.
+  ```python
+  visited = set() # Cree un ensemble vide
+
+  #Utilisation
+  visited.add(node) # Ajoute un node a l'ensemble, s'il est deja dedans il sera ignore
+  if node in visited: # On teste l'appartenance d'un noeud comme pour une liste classique
+     # Instructions
+  ```
+- Un **dictionnaire** pour garder une trace des coûts `g` pour atteindre chaque position depuis le point de départ.
+   ```python
+   costs = {start : 0} # On y initialise la case d'où l'on part, qui a donc un coût de 0.
+   ```
+- Un **dictionnaire `parents`** pour garder une trace du chemin parcouru, c’est-à-dire de quelle case on est venu pour arriver à chaque case.
+   ```python
+   parents = {}
+   ```
+
+##### Étape 2 : Définition de `g` et `h`
+
+- `g` représente la distance depuis le départ jusqu’à une position.
+- `h` représente la distance directe entre la position actuelle et la cible. La formule est celle de la distance entre deux points.
+  ```python
+  h = math.sqrt((x - end[0]) ** 2 + (y - end[1]) ** 2)
+  ```
+##### Étape 3 : Boucler pour Explorer les Positions
+
+**Boucle principale** (tant qu’il reste des positions dans le tas) :
+   - Prendre la position avec le plus faible cout, la plus petite valeur `f`.
+   - Si cette position **n’a pas été visitée** :
+     - Marquer cette position comme visitée en l'ajoutant à `visited`.
+     - **Si c'est la case cible** :
+       - Remonter dans `parents` pour construire la liste du chemin.
+       - Retourner la liste trouvée.
+
+   - **Pour chaque voisin** (haut, bas, gauche, droite) de la position actuelle :
+     - **Vérifier** que le voisin est dans les limites du labyrinthe et n'est pas un mur.
+        - Calculer le nouveau coût `g` pour atteindre ce voisin, c'est donc le cout de la case actuelle + 1.
+
+        - **Si ce coût est inférieur** au coût précédemment enregistré  dans `costs` ou **que la case n'était pas enregistrée** :
+          - Mettre à jour les valeurs de `g`, `h`, et `f` pour ce voisin.
+          - Enregistrer la case actuelle comme parent de ce voisin dans `parents`.
+          - Ajouter le voisin a `heap` pour qu’il soit exploré plus tard.
+
+Si la boucle s'est terminée sans rien retourner, c'est qu'aucun chemin n'a été trouvé, on renvoie donc une liste vide.
 
 
 
