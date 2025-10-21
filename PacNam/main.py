@@ -29,7 +29,7 @@ while running:
     # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
+            running = False
 
     # fill the screen with a color to wipe away anything from last frame
     screen.fill(BLACK)
@@ -54,7 +54,10 @@ while running:
 
 draw_game_over(screen, height, size, pacnam.life)
 pygame.display.flip()
-while True:
+gameover = True
+while gameover:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
+            gameover = False
+
+pygame.exit()
