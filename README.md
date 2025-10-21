@@ -20,7 +20,7 @@ Pour commencer, exécutez la commande `./setup.sh` qui permetera d'installer l'e
 
 Une fois que la commande est terminé pour lancer Visual Studio Code tapé `code` dans le terminal
 
-Pour lancer votre programme python aller dans le dossier `PacNam/`
+Pour lancer votre programme python aller dans le dossier `PacNam/` et exécuté `python main.py`
 
 Vous avez les fichiers `pacnam.py` et `ghost.py` a compléter.
 
