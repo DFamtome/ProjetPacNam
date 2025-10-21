@@ -1,6 +1,6 @@
 echo Installation de vscode et des extentions
 
-nix profile install nixpkgs#vscode
+nix-shell -p "vscode"
 nix profile install nixpkgs#vscode-extensions.ms-python.python
 
 echo Installation de pygame
