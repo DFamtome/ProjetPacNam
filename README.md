@@ -8,9 +8,19 @@ Vous êtes sur i3 : un gestionaire de fenettre qui marche pas tuile. Fini les fe
 
 - `windows + enter`  (ouvre un nouveau terminal)
 
+Une fois le terminal lancer, pour affiché ce qui a dans le dossier courant faites `ls` ou `l`
+
+Pour changer de dossier faites `cd "Nom du dossier"`
+
+Pour revenir en arrière faites `cd ..`
+
 Maintenant que vous avez les cartes en main, on peut y aller !
 
 Pour commencer, exécutez la commande `./setup.sh` qui permetera d'installer l'environement
+
+Une fois que la commande est terminé pour lancer Visual Studio Code tapé `code` dans le terminal
+
+Pour lancer votre programme python aller dans le dossier `PacNam/`
 
 Vous avez les fichiers `pacnam.py` et `ghost.py` a compléter.
 
