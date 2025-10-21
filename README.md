@@ -1,5 +1,15 @@
 # ProjetPacNam
 
+## Se familiarisé avec l'environement
+
+Vous êtes sur i3 : un gestionaire de fenettre qui marche pas tuile. Fini les fenntres flotantes de Windows !
+
+- `windows + D`      (pour toutes recherche d'application)
+
+- `windows + enter`  (ouvre un nouveau terminal)
+
+Maintenant que vous avez les cartes en main, on peut y aller !
+
 Pour commencer, exécutez la commande `./setup.sh` qui permetera d'installer l'environement
 
 Vous avez les fichiers `pacnam.py` et `ghost.py` a compléter.
